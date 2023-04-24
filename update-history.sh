@@ -18,7 +18,7 @@ cd "$OLDPWD"
 filter() {
   while IFS= read -r f
   do
-    [ "${history_files[$f]}" ] || echo $f
+    [ "${history_files[$f]}" ] || [ "$f" = './index.html' ] || echo $f
   done
 }
 
@@ -32,3 +32,4 @@ find . -type f ! -path */.git/* | filter | sort | xargs sha256sum >> "$changes_f
 cd "$history_dir"
 git add .
 git commit -m "Updated tmp-history at $1"
+git push
