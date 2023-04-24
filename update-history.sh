@@ -3,13 +3,16 @@ set -o pipefail
 
 [ "$1" ] || { echo A date is required!; exit 1; }
 
-history_dir=${history_repo:-../paulojeronimo.github.io/tmp-history}
+history_dir=${history_repo:-../tmp-history}
 changes_file="$history_dir"/changes.txt
 cd "$(dirname "$0")"
 
 declare -A history_files
 cd "$history_dir"
-for f in $(find . -type f ! -name $(basename "$changes_file")); do history_files[$f]=1; done
+for f in $(find . -type f ! \( -name $(basename "$changes_file") -o -path './.git/*' \))
+do
+  history_files[$f]=1
+done
 cd "$OLDPWD"
 
 filter() {

@@ -1,21 +1,118 @@
-A Git repository that always contains a single commit and only temporary files.
+= `tmp`: your Git repository to share temporary files via GitHub Pages
+:icons: font
+:nofooter:
+// URIs
+:uri-gpg: https://gnupg.org/
+:uri-github-pages: https://pages.github.com/
+:uri-ghpages-custom-domain: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site
+:uri-my-domain: https://paulojeronimo.com
+:uri-my-tmp: {uri-my-domain}/tmp
+:uri-my-github: https://github.com/paulojeronimo
+:uri-tmp-github: {uri-my-github}/tmp
+:uri-tmp-history-github: {uri-my-github}/tmp-history
+// Attributes
+:GPG: {uri-gpg}[GPG]
+:GitHubPages: {uri-github-pages}[GitHub Pages]
+:tmp: {uri-tmp-github}[tmp]
+:tmp-history: {uri-tmp-history-github}[tmp-history]
+// An alternative file where you can configure your variables pointed by this doc:
+ifdef::my-variables[]
+include::{my-variables}.adoc[]
+endif::[]
 
-So, don't expect that you can make a clone of this repository thinking you'll
-pull it later because that won't work.
+[.big.text-center]
+*Sometimes you may want a location to share a temporary file with the following
+conditions:*
+
+. The file should be associated with one of your known public domains.
+.. In my case, the domain {uri-my-domain}.
+. The file name could be automatically generated for you, via a script, with a
+small length and random characters.
+. The file could be encrypted. Ideally, you would use software like {GPG} for
+this.
+. Only you should be capable of removing the file.
+. Whenever you add, update or remove a file in this location, a file
+`changes.txt` stating the changes were made should be updated.
+.. This file should be audited by the command `git log` so you can see, at any
+time, what modifications were made in the place.
+
+[.big.text-center]
+*This project helps you to achieve the conditions above using {GitHubPages}!*
+
+The {tmp} git repository always contains a single commit and many temporary
+files. This repo can also have Bash scripts and some other files that are
+persistent in another git repository: {tmp-history}.
+
+So, for the {tmp} repository, don't expect you can make a clone of it thinking
+you'll pull it later because that won't work.
 
 The files generated in this repository are accessible through the URL
-https://paulojeronimo.com/tmp/.
+https://your-github-name.github.io/tmp/.
+
+NOTE: In my case, {uri-ghpages-custom-domain}[I configured GitHub Pages as my
+custom domain]. So, my `tmp` repo is available here: {uri-my-tmp}.
 
 *The SHA256 of the temporary files* stored here keeps alive (and constantly
-updated) in https://github.com/paulojeronimo/paulojeronimo.github.io/blob/master/tmp-history/changes.txt.
+updated) in
+{uri-tmp-history-github}/blob/main/changes.txt[tmp-history/blob/main/changes.txt].
 So, you can audit if there was any change in the files pointed out by it.
 
-All the files that are not temporary in this repository are also available in
-the directory `tmp-history` pointed by the repo above.
+All the files that are not temporary in the {tmp} repository are also available
+in the repository {tmp-history} with a history of changes associated with them.
 
-The link:publish-to-gh-pages.sh[] script is responsible for recreating this
-repository every time it is called.
+[.big.text-center]
+*Here is the list of the current scripts available for your use:*
 
-The link:generate-random-file.sh[] script is responsible for creating a file
-with a random and unique name in this directory. Possibly, the contents of this
-file will be encrypted via https://gnupg.org/[GPG].
+. link:publish-to-gh-pages.sh[] -> this script is responsible for recreating
+the {tmp} repository every time it is called.
+. link:update-history.sh[] -> this script is called by `publish-to-gh-pages.sh`
+and is responsible to update the repository {tmp-history} by copying any
+persistent files that were changed to it and by generating the `changes.txt`
+file.
+. link:generate-random-file.sh[] -> this script is responsible for creating a
+file with a random and unique name in this directory. Possibly, the contents of
+this file will be encrypted via {GPG}.
+
+*Use cases:*
+
+.You want to generate a random file to use it in your script
+[%collapsible]
+====
+----
+$ ./generate-random-file.sh
+----
+
+To specify the size (length) of the file name use:
+
+----
+$ size=5 ./generate-random-file.sh
+----
+====
+
+.You want to remove the generated temporary files that have no content
+[%collapsible]
+====
+----
+$ find . -maxdepth 1 -type f -size 0 -delete
+----
+====
+
+.You want to publish the contents of your directory `tmp`
+[%collapsible]
+====
+----
+$ ./publish-to-gh-pages.sh
+----
+====
+
+.You want some files that you put in {tmp} available in {tmp-history}
+[%collapsible]
+====
+This way they will no longer be temporary and your change history will remain
+there (in {tmp-history}).
+----
+$ cp file1 file2 ../tmp-history
+----
+NOTE: In the `update-history.sh` script, the `history_dir` variable also points
+to a `tmp-history` inside the parent directory of `tmp` repository.
+====
