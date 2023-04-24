@@ -1,0 +1,21 @@
+A Git repository that always contains a single commit and only temporary files.
+
+So, don't expect that you can make a clone of this repository thinking you'll
+pull it later because that won't work.
+
+The files generated in this repository are accessible through the URL
+https://paulojeronimo.com/tmp/.
+
+*The SHA256 of the temporary files* stored here keeps alive (and constantly
+updated) in https://github.com/paulojeronimo/paulojeronimo.github.io/blob/master/tmp-history/changes.txt.
+So, you can audit if there was any change in the files pointed out by it.
+
+All the files that are not temporary in this repository are also available in
+the directory `tmp-history` pointed by the repo above.
+
+The link:publish-to-gh-pages.sh[] script is responsible for recreating this
+repository every time it is called.
+
+The link:generate-random-file.sh[] script is responsible for creating a file
+with a random and unique name in this directory. Possibly, the contents of this
+file will be encrypted via https://gnupg.org/[GPG].
