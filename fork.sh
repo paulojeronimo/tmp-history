@@ -6,8 +6,16 @@ set -eou pipefail
 	origin=${origin:-https://github.com/paulojeronimo/tmp-history}
 	history_dir=${history_dir:-$(basename $origin)}
 	[ "${github_user:-}" ] || {
-		echo Missing \'github_user\' value! 
-		exit
+    while IFS= true
+    do
+      read -p "Enter your github user: " -r github_user
+      if [ "${github_user}" ]
+      then
+        read -p "Confirm \"$github_user\"? (Y|N) " -r -n 1
+        echo
+        ! [[ $REPLY =~ ^[Yy]$ ]] || break
+      fi
+    done
 	}
 
 	echo -n "Cloning from $origin to $history_dir ... "
