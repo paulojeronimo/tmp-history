@@ -56,6 +56,7 @@ log=$(mktemp)
 cd "$history_dir"
 echo -n "Updating history_dir repository ($(git remote get-url origin)) ... "
 {
+  git add .
   git commit -m "Updated at $1"
   git push
 } &> $log && echo Ok! || echo -n "Error!\n$(cat $log)"
