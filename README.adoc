@@ -28,7 +28,9 @@ endif::[]
 conditions:*
 
 . The file should be associated with one of your known public domains.
-.. In my case, the domain {uri-my-domain}.
+ifndef::env-github[]
+In my case, the domain {uri-my-domain}.
+endif::[]
 . The file name could be automatically generated for you, via a script, with a
 small length and random characters.
 . The file could be encrypted. Ideally, you would use software like {GPG} for
@@ -46,19 +48,24 @@ The {tmp} git repository always contains a single commit and many temporary
 files. This repo can also have <<bash-scripts,Bash scripts>> and other files
 that are persistent in another git repository ({tmp-history}). So, for the
 {tmp} repository, don't expect you can make a clone of it, thinking you'll pull
-it later because that won't work. In technical words:
+it later because that won't work.
+ifndef::env-github[]
+In technical words:
 
 [subs=attributes+]
 ----
 $ git clone {uri-tmp-github} # <- it works!
-$ git pull {uri-tmp-github}  # <- will not work!
+$ git pull {uri-tmp-github}  # <- it will not work!
 ----
+endif::[]
 
 The files generated in this repository are accessible through the URL
 https://your-github-name.github.io/tmp/.
 
+ifndef::env-github[]
 NOTE: In my case, {uri-ghpages-custom-domain}[I configured GitHub Pages as my
 custom domain]. So, my `tmp` repo is available here: {uri-tmp}.
+endif::[]
 
 *The SHA256 of the temporary files* stored here keeps alive (and constantly
 updated) in
