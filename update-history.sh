@@ -31,7 +31,7 @@ filter() {
 
 for f in ${!history_files[@]}; do cp "$f" "$history_dir"/; done
 
-echo -e "Update date/time: $1" > "$changes_file"
+echo -e "Date and time: $1" > "$changes_file"
 
 cd "$history_dir"
 persistent=$(mktemp)

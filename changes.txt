@@ -1,10 +1,9 @@
-Update date/time: 2023-04-25T15:40:34-03:00
+Date and time: 2023-04-25T15:43:27-03:00
 
 Persistent files changes:
+M  update-history.sh
 
 Temporary files changes:
-D  2qN
-D  cy5
 
 Temporary files hashes:
 06041df5b5465cc8762cad1ba01c5c82aca1f49299f41c33963d8c4045f57b09  ./ft2324.pdf
