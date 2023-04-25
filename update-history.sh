@@ -31,23 +31,23 @@ filter() {
 
 for f in ${!history_files[@]}; do cp "$f" "$history_dir"/; done
 
-echo -e "Date and time: $1" > "$changes_file"
+echo -e "--> Date and time <--\n$1" > "$changes_file"
 
 cd "$history_dir"
 persistent=$(mktemp)
-echo -e "\nPersistent files changes:" >> "$changes_file"
+echo -e "\n--> Persistent files changes <--" >> "$changes_file"
 git add .
 git status --short | grep -v $(basename "$changes_file") | tee $persistent >> "$changes_file"
 cd "$OLDPWD"
 
 temporary=$(mktemp)
-echo -e "\nTemporary files changes:" >> "$changes_file"
+echo -e "\n--> Temporary files changes <--" >> "$changes_file"
 git add .
 git status --short | grep -v $(basename "$changes_file") > $temporary
 
 grep -vf $persistent $temporary >> "$changes_file"
 
-echo -e "\nTemporary files hashes:" >> "$changes_file"
+echo -e "\n--> Temporary files hashes <--" >> "$changes_file"
 rm -f "$(basename "$changes_file")"
 find . -type f ! -path './.git/*' | filter | sort | xargs sha256sum >> "$changes_file"
 cp "$changes_file" .
@@ -60,3 +60,6 @@ echo -n "Updating history_dir repository ($(git remote get-url origin)) ... "
   git commit -m "Updated at $1"
   git push
 } &> $log && echo Ok! || echo -n "Error!\n$(cat $log)"
+
+echo "Content of \"$changes_file\":"
+cat "$changes_file"
