@@ -62,4 +62,4 @@ echo -n "Updating history_dir repository ($(git remote get-url origin)) ... "
 } &> $log && echo Ok! || echo -n "Error!\n$(cat $log)"
 
 echo "Content of '$changes_file' (between 4 dashes):"
-echo -e "----$(cat '$changes_file')\n----"
+echo -e "----$(cat "$changes_file")\n----"
