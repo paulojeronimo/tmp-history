@@ -5,20 +5,22 @@
 :uri-gpg: https://gnupg.org/
 :uri-github-pages: https://pages.github.com/
 :uri-ghpages-custom-domain: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site
+//
 :uri-my-domain: https://paulojeronimo.com
-:uri-my-tmp: {uri-my-domain}/tmp
 :uri-my-github: https://github.com/paulojeronimo
+// A file where you can configure the variables 'uri-my-*' pointed above:
+ifdef::my-variables[]
+include::{my-variables}[]
+endif::[]
+//
+:uri-tmp: {uri-my-domain}/tmp
+:uri-tmp-history: {uri-my-github}/tmp-history
 :uri-tmp-github: {uri-my-github}/tmp
-:uri-tmp-history-github: {uri-my-github}/tmp-history
 // Attributes
 :GPG: {uri-gpg}[GPG]
 :GitHubPages: {uri-github-pages}[GitHub Pages]
 :tmp: {uri-tmp-github}[tmp]
-:tmp-history: {uri-tmp-history-github}[tmp-history]
-// An alternative file where you can configure your variables pointed by this doc:
-ifdef::my-variables[]
-include::{my-variables}.adoc[]
-endif::[]
+:tmp-history: {uri-tmp-history}[tmp-history]
 
 [.big.text-center]
 *Sometimes you may want a location to share a temporary file with the following
@@ -50,11 +52,11 @@ The files generated in this repository are accessible through the URL
 https://your-github-name.github.io/tmp/.
 
 NOTE: In my case, {uri-ghpages-custom-domain}[I configured GitHub Pages as my
-custom domain]. So, my `tmp` repo is available here: {uri-my-tmp}.
+custom domain]. So, my `tmp` repo is available here: {uri-tmp}.
 
 *The SHA256 of the temporary files* stored here keeps alive (and constantly
 updated) in
-{uri-tmp-history-github}/blob/main/changes.txt[tmp-history/blob/main/changes.txt].
+{uri-tmp-history}/blob/main/changes.txt[tmp-history/blob/main/changes.txt].
 So, you can audit if there was any change in the files pointed out by it.
 
 All the files that are not temporary in the {tmp} repository are also available
@@ -115,4 +117,17 @@ $ cp file1 file2 ../tmp-history
 ----
 NOTE: In the `update-history.sh` script, the `history_dir` variable also points
 to a `tmp-history` inside the parent directory of `tmp` repository.
+====
+
+.You want to rebuild this `index.html` using your own variables
+[%collapsible]
+====
+----
+$ cat > my-variables.adoc <<EOF
+:uri-my-domain: https://my-user.github.io/
+:uri-my-github: https://github.com/my-user
+EOF
+
+$ ./README.build.sh
+----
 ====

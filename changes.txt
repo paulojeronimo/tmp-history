@@ -1,6 +1,8 @@
-Update date/time: 2023-04-24T20:33:32-03:00
+Update date/time: 2023-04-25T05:55:32-03:00
 
 Changes:
+ M README.adoc
+ M README.build.sh
  M update-history.sh
 
 Temporary files hashes:
