@@ -21,6 +21,7 @@ endif::[]
 :GitHubPages: {uri-github-pages}[GitHub Pages]
 :tmp: {uri-tmp-github}[tmp]
 :tmp-history: {uri-tmp-history}[tmp-history]
+:changes-txt: {uri-tmp}/changes.txt[changes.txt]
 
 [.big.text-center]
 *Sometimes you may want a location to share a temporary file with the following
@@ -34,7 +35,7 @@ small length and random characters.
 this.
 . Only you should be capable of removing the file.
 . Whenever you add, update or remove a file in this location, a file
-`changes.txt` stating the changes were made should be updated.
+{changes-txt} stating the changes were made should be updated.
 .. This file should be audited by the command `git log` so you can see, at any
 time, what modifications were made in the place.
 
@@ -80,7 +81,7 @@ the {tmp} repository every time it is called.
 * link:update-history.sh[] -> this script is called by `publish-to-gh-pages.sh`
 and is responsible to update the repository {tmp-history} by copying any
 persistent files that were changed to it and by generating the file
-`changes.txt`.
+{changes-txt}.
 
 [.big.text-center]
 *Use cases of the scripts above:*

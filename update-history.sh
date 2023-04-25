@@ -35,7 +35,9 @@ for f in ${!history_files[@]}; do cp "$f" "$history_dir"/; done
 echo -e "Update date/time: $1\n\nChanges:" > "$changes_file"
 git status --short | grep -v index.html >> "$changes_file"
 echo -e "\nTemporary files hashes:" >> "$changes_file"
+rm -f "$(basename "$changes_file")"
 find . -type f ! -path './.git/*' | filter | sort | xargs sha256sum >> "$changes_file"
+cp "$changes_file" .
 
 log=$(mktemp)
 cd "$history_dir"
