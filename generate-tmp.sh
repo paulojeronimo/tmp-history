@@ -15,5 +15,5 @@ cd ..
 }
 cp -a "$OLDPWD" "$tmp_dir"
 cd "${tmp_dir}"
-git remote set-url origin $origin
+git remote set-url origin $new_origin
 ./publish-to-gh-pages.sh
