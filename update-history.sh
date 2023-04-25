@@ -33,7 +33,7 @@ for f in ${!history_files[@]}; do cp "$f" "$history_dir"/; done
 
 echo -e "Update date/time: $1\n\nChanges:" > "$changes_file"
 cd "$history_dir"
-git status --short | grep $(basename "$changes_file") >> "$changes_file"; 
+git status --short | grep -v $(basename "$changes_file") >> "$changes_file"; 
 cd "$OLDPWD"
 echo -e "\nTemporary files hashes:" >> "$changes_file"
 rm -f "$(basename "$changes_file")"

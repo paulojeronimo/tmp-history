@@ -1,7 +1,7 @@
-Update date/time: 2023-04-25T14:21:09-03:00
+Update date/time: 2023-04-25T14:22:40-03:00
 
 Changes:
- M changes.txt
+ M update-history.sh
 
 Temporary files hashes:
 06041df5b5465cc8762cad1ba01c5c82aca1f49299f41c33963d8c4045f57b09  ./ft2324.pdf
