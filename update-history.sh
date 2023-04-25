@@ -7,11 +7,6 @@ history_dir=${history_repo:-../tmp-history}
 changes_file="$history_dir"/changes.txt
 
 cd "$(dirname "$0")"
-! [ -d "${PWD##*/}" = "$(basename "$history_dir")" ] || {
-  echo Skipping $0 ...
-  exit 0
-}
-
 [ -d "$history_dir" ] && {
   echo Directory history_dir is $(cd "$PWD/$history_dir"; pwd)
 } || {

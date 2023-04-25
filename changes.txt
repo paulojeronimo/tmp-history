@@ -1,8 +1,7 @@
 --> Date and time <--
-2023-04-25T18:20:48-03:00
+2023-04-25T18:32:12-03:00
 
 --> Persistent files changes <--
-M  generate-tmp.sh
 M  update-history.sh
 
 --> Temporary files changes <--
