@@ -63,19 +63,21 @@ All the files that are not temporary in the {tmp} repository are also available
 in the repository {tmp-history} with a history of changes associated with them.
 
 [.big.text-center]
-*Here is the list of the current scripts available for your use:*
+*This is the list of the scripts available (in alphabetical order):*
 
-. link:publish-to-gh-pages.sh[] -> this script is responsible for recreating
-the {tmp} repository every time it is called.
-. link:update-history.sh[] -> this script is called by `publish-to-gh-pages.sh`
-and is responsible to update the repository {tmp-history} by copying any
-persistent files that were changed to it and by generating the `changes.txt`
-file.
-. link:generate-random-file.sh[] -> this script is responsible for creating a
+* link:generate-random-file.sh[] -> this script is responsible for creating a
 file with a random and unique name in this directory. Possibly, the contents of
 this file will be encrypted via {GPG}.
+* link:publish-to-gh-pages.sh[] -> this script is responsible for recreating
+the {tmp} repository every time it is called.
+* link:README.build.sh[] -> this script rebuilds this page (`index.html`).
+* link:update-history.sh[] -> this script is called by `publish-to-gh-pages.sh`
+and is responsible to update the repository {tmp-history} by copying any
+persistent files that were changed to it and by generating the file
+`changes.txt`.
 
-*Use cases:*
+[.big.text-center]
+*Use cases of the scripts above:*
 
 .You want to generate a random file to use it in your script
 [%collapsible]
@@ -89,11 +91,9 @@ To specify the size (length) of the file name use:
 ----
 $ size=5 ./generate-random-file.sh
 ----
-====
 
-.You want to remove the generated temporary files that have no content
-[%collapsible]
-====
+To remove the generated temporary files that have no content, type:
+
 ----
 $ find . -maxdepth 1 -type f -size 0 -delete
 ----
@@ -112,22 +112,33 @@ $ ./publish-to-gh-pages.sh
 ====
 This way they will no longer be temporary and your change history will remain
 there (in {tmp-history}).
+
 ----
 $ cp file1 file2 ../tmp-history
 ----
+
 NOTE: In the `update-history.sh` script, the `history_dir` variable also points
-to a `tmp-history` inside the parent directory of `tmp` repository.
+to a `tmp-history` inside the parent directory of `tmp` repository. So, if your
+`tmp-history` directory have a different name, you need to configure this
+variable.
 ====
 
-.You want to rebuild this `index.html` using your own variables
+.You want to rebuild this page (`index.html`) using your own variables
 [%collapsible]
 ====
+Create a  file named `my-variables.adoc` and configure the AsciiDoc attributes
+`uri-my-*`. This is a sample of how to do this:
+
 ----
 $ cat > my-variables.adoc <<EOF
 :uri-my-domain: https://my-user.github.io/
 :uri-my-github: https://github.com/my-user
 EOF
+----
 
+Rebuild the `index.html` with this command:
+
+----
 $ ./README.build.sh
 ----
 ====

@@ -5,7 +5,15 @@ set -o pipefail
 
 history_dir=${history_repo:-../tmp-history}
 changes_file="$history_dir"/changes.txt
+
 cd "$(dirname "$0")"
+
+[ -d "$history_dir" ] && {
+  echo Directory history_dir is $(cd "$PWD/$history_dir"; pwd)
+} || {
+  echo Directory \"$PWD/$history_dir\" does not exists. Aborting!
+  exit 1
+}
 
 declare -A history_files
 cd "$history_dir"
@@ -27,9 +35,13 @@ for f in ${!history_files[@]}; do cp "$f" "$history_dir"/; done
 echo -e "Update date/time: $1\n\nChanges:" > "$changes_file"
 git status --short | grep -v index.html >> "$changes_file"
 echo -e "\nTemporary files hashes:" >> "$changes_file"
-find . -type f ! -path */.git/* | filter | sort | xargs sha256sum >> "$changes_file"
+find . -type f ! -path './.git/*' | filter | sort | xargs sha256sum >> "$changes_file"
 
+log=$(mktemp)
 cd "$history_dir"
-git add .
-git commit -m "Updated tmp-history at $1"
-git push
+echo -n "Updating repository $(git remote get-url origin) ..."
+{
+  git add .
+  git commit -m "Updated at $1"
+  git push
+} &> $log && echo Ok! || echo -n "Error!\n$(cat $log)"
