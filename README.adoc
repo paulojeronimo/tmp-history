@@ -42,11 +42,16 @@ time, what modifications were made in the place.
 *This project helps you to achieve the conditions above using {GitHubPages}!*
 
 The {tmp} git repository always contains a single commit and many temporary
-files. This repo can also have Bash scripts and some other files that are
-persistent in another git repository: {tmp-history}.
+files. This repo can also have <<bash-scripts,Bash scripts>> and other files
+that are persistent in another git repository ({tmp-history}). So, for the
+{tmp} repository, don't expect you can make a clone of it, thinking you'll pull
+it later because that won't work. In technical words:
 
-So, for the {tmp} repository, don't expect you can make a clone of it thinking
-you'll pull it later because that won't work.
+[subs=attributes+]
+----
+$ git clone {uri-tmp-github} # <- it works!
+$ git pull {uri-tmp-github}  # <- will not work!
+----
 
 The files generated in this repository are accessible through the URL
 https://your-github-name.github.io/tmp/.
@@ -62,6 +67,7 @@ So, you can audit if there was any change in the files pointed out by it.
 All the files that are not temporary in the {tmp} repository are also available
 in the repository {tmp-history} with a history of changes associated with them.
 
+[[bash-scripts]]
 [.big.text-center]
 *This is the list of the scripts available (in alphabetical order):*
 
