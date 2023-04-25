@@ -7,7 +7,6 @@ history_dir=${history_repo:-../tmp-history}
 changes_file="$history_dir"/changes.txt
 
 cd "$(dirname "$0")"
-
 [ -d "$history_dir" ] && {
   echo Directory history_dir is $(cd "$PWD/$history_dir"; pwd)
 } || {
@@ -33,7 +32,9 @@ filter() {
 for f in ${!history_files[@]}; do cp "$f" "$history_dir"/; done
 
 echo -e "Update date/time: $1\n\nChanges:" > "$changes_file"
-git status --short | grep -v index.html >> "$changes_file"
+cd "$history_dir"
+git status --short | grep -v index.html >> "$changes_file"; 
+cd "$OLDPWD"
 echo -e "\nTemporary files hashes:" >> "$changes_file"
 rm -f "$(basename "$changes_file")"
 find . -type f ! -path './.git/*' | filter | sort | xargs sha256sum >> "$changes_file"
