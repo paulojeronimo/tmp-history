@@ -39,7 +39,7 @@ find . -type f ! -path './.git/*' | filter | sort | xargs sha256sum >> "$changes
 
 log=$(mktemp)
 cd "$history_dir"
-echo -n "Updating repository $(git remote get-url origin) ..."
+echo -n "Updating history_dir repository ($(git remote get-url origin)) ... "
 {
   git add .
   git commit -m "Updated at $1"

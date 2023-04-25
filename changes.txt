@@ -1,8 +1,6 @@
-Update date/time: 2023-04-25T07:52:58-03:00
+Update date/time: 2023-04-25T08:01:07-03:00
 
 Changes:
- M README.adoc
- M publish-to-gh-pages.sh
  M update-history.sh
 
 Temporary files hashes:
